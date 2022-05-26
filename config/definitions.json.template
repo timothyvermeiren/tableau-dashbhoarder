@@ -2,7 +2,7 @@
     "sources": [
         {
             "id": "biztory_penguin_demo",
-            "server": "penguin.biztory.com",
+            "server": "https://penguin.biztory.com",
             "apiVersion": "3.14",
             "site": "demo",
             "patName": "tableau_dashbhoarder",
@@ -10,7 +10,7 @@
         },
         {
             "id": "biztory_online_timothy_datadev",
-            "server": "10ax.online.tableau.com",
+            "server": "https://10ax.online.tableau.com",
             "apiVersion": "3.14",
             "site": "timothysdatadevsitedev518337",
             "patName": "tableau_dashbhoarder",
@@ -18,7 +18,7 @@
         },
         {
             "id": "online_timothy_datadev",
-            "server": "10ax.online.tableau.com",
+            "server": "https://10ax.online.tableau.com",
             "apiVersion": "3.14",
             "site": "timothyvermeirendev291925",
             "patName": "tableau_dashbhoarder",
