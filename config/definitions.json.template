@@ -1,0 +1,60 @@
+{
+    "sources": [
+        {
+            "id": "biztory_penguin_demo",
+            "server": "penguin.biztory.com",
+            "apiVersion": "3.14",
+            "site": "demo",
+            "patName": "tableau_dashbhoarder",
+            "patSecret": "hunter2"
+        },
+        {
+            "id": "biztory_online_timothy_datadev",
+            "server": "10ax.online.tableau.com",
+            "apiVersion": "3.14",
+            "site": "timothysdatadevsitedev518337",
+            "patName": "tableau_dashbhoarder",
+            "patSecret": "hunter2"
+        },
+        {
+            "id": "online_timothy_datadev",
+            "server": "10ax.online.tableau.com",
+            "apiVersion": "3.14",
+            "site": "timothyvermeirendev291925",
+            "patName": "tableau_dashbhoarder",
+            "patSecret": "hunter2"
+        }
+    ],
+    "content": [
+        {
+            "name": "Activity Dashboard",
+            "_comment": "Timothy's Activity Dashboard, which we download for display on the screens.",
+            "source": "online_timothy_datadev",
+            "url": "https://10ax.online.tableau.com/#/site/timothyvermeirendev291925/views/ActivityDashboard/ActivityDashboard",
+            "target": {
+                "filename": "activity_dashboard",
+                "path": "C:\\development\\tableau-dashbhoarder\\data"
+            }
+        },
+        {
+            "name": "Real-time Drums Dashboard",
+            "_comment": "Timothy's Real-time Drums Dashboard, bla bla.",
+            "source": "biztory_penguin_demo",
+            "url": "https://penguin.biztory.com/#/site/Demo/views/Real-timeDrumsDashboard/Real-timeDrumsDashboard?:iid=1",
+            "target": {
+                "filename": "drums_dashboard",
+                "path": "C:\\development\\tableau-dashbhoarder\\data"
+            }
+        },
+        {
+            "name": "Wordle Dashboard",
+            "_comment": "Wordle was fun for a while.",
+            "source": "biztory_online_timothy_datadev",
+            "url": "https://10ax.online.tableau.com/#/site/timothysdatadevsitedev518337/views/BiztoryWordle/BiztoryWordle?:iid=1",
+            "target": {
+                "filename": "wordle_dashboard",
+                "path": "C:\\development\\tableau-dashbhoarder\\data"
+            }
+        }
+    ]
+}
