@@ -1,5 +1,5 @@
 # tableau-dashbhoarder
-Hoards dashboards from Tableau Server or Tableau Cloud, to local images
+Hoards dashboards from Tableau Server or Tableau Cloud, to local images. In other words, kind of an automated downloader of Tableau dashboards.
 
 ## Installation
 
