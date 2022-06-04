@@ -16,7 +16,7 @@ start_datetime = datetime.datetime.utcnow()
 
 ##### Logging
 logger = logging.getLogger() # Root logger
-log_file_name = "logs" + os.sep + "tableau_git_sync.log"
+log_file_name = "logs" + os.sep + "tableau_dashbhoarder.log"
 log_file_handler = logging.handlers.RotatingFileHandler(log_file_name, maxBytes=5000000, backupCount=5)
 log_console_handler = logging.StreamHandler(sys.stdout)
 log_formatter = logging.Formatter("%(asctime)s [%(threadName)s] [%(levelname)s]  %(message)s")
