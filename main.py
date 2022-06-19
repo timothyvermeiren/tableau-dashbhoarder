@@ -83,6 +83,10 @@ for source in definitions["sources"]:
             # tableau_server_tsc.add_http_options({ "verify": config["tableau_server"]["ssl_certificates"] })
         try:
             tableau_server_tsc.auth.sign_in_with_personal_access_token(ts_auth)
+        except Exception as e: # Failed to sign in 
+            logger.error("Failed to sign in to this Tableau instance. Skipping.")
+            logger.error(e)
+        else:
             logger.info(f"Getting all views from URL: { content['url'] }")
             ts_all_views = list(TSC.Pager(tableau_server_tsc.views))
         
@@ -108,26 +112,20 @@ for source in definitions["sources"]:
                     # Let's be helpful
                     if not os.path.exists(image_path):
                         os.makedirs(image_path)
-
+                except Exception as e: # Failed to process the info to determine what and how.
+                    logger.error("An error occurred processing this content and/or pre-populating the image request. Skipping.")
+                    logger.error(e)
+                else: # Get the image
                     try:
                         with open(image_output, "wb") as image_file:
                             image_file.write(ts_view.image)
                     except Exception as e:
                         logger.error(f"Failed to write image to { image_output }")
                         logger.error(e)
-                
-                except Exception as e: # Failed to get image
-                    logger.warning("An error occurred processing this content. Skipping.")
-                    logger.warning(e)
-        
-        except Exception as e: # Failed to sign in 
-            logger.error("Failed to sign in to this Tableau instance. Skipping.")
-            logger.error(e)
-
-        # Sign out
-        logger.info("Signing out of this Tableau instance.")
-        tableau_server_tsc.auth.sign_out()
-        
+            
+            # Sign out
+            logger.info("Signing out of this Tableau instance.")
+            tableau_server_tsc.auth.sign_out()        
 
 # Timing
 end_time = time.time()
