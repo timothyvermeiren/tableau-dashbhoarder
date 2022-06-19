@@ -29,7 +29,7 @@ logger.addHandler(log_file_handler)
 logger.addHandler(log_console_handler)
 
 # Function(s) involving a retry decorator
-@retry(Exception, tries=3, delay=3, backoff=2)
+@retry(Exception, tries=3, delay=10, backoff=2)
 def get_and_write_image(ts_view:TSC.ViewItem, image_output:str):
     with open(image_output, "wb") as image_file:
         image_file.write(ts_view.image)
