@@ -1,3 +1,4 @@
+from email.mime import image
 import tableauserverclient as TSC
 import argparse # to parse additional arguments and the mode we'll use
 # import configparser
@@ -5,6 +6,7 @@ import logging
 import logging.handlers # For RotatingFileHandler
 import os, sys, datetime, re, json, time
 from functions import slugify, get_source_by_id
+from retry import retry
 
 # First thing, logs directory
 if not os.path.exists("logs"):
@@ -25,6 +27,12 @@ log_console_handler.setFormatter(log_formatter)
 logger.setLevel(logging.INFO)
 logger.addHandler(log_file_handler)
 logger.addHandler(log_console_handler)
+
+# Function(s) involving a retry decorator
+@retry(Exception, tries=3, delay=3, backoff=2)
+def get_and_write_image(ts_view:TSC.ViewItem, image_output:str):
+    with open(image_output, "wb") as image_file:
+        image_file.write(ts_view.image)
 
 logger.info("Tableau Dashbhoarder v1.0")
 
@@ -103,6 +111,7 @@ for source in definitions["sources"]:
                     # Get the view image
                     image_req_option = TSC.ImageRequestOptions(imageresolution=TSC.ImageRequestOptions.Resolution.High, maxage=1)
                     tableau_server_tsc.views.populate_image(ts_view, image_req_option)
+                    # We are probably going to replace the above with a regular REST API call for more control over the content and specifically accessing it only once this request is finished, as otherwise we seem to run into issues with PATs not allowing for concurrent calls which this thing does do.
 
                     # Determine output based on what is provided, which is a bit flexible
                     # The path specified at the content level, or otherwise the default from args.
@@ -117,8 +126,7 @@ for source in definitions["sources"]:
                     logger.error(e)
                 else: # Get the image
                     try:
-                        with open(image_output, "wb") as image_file:
-                            image_file.write(ts_view.image)
+                        get_and_write_image(ts_view=ts_view, image_output=image_output)
                     except Exception as e:
                         logger.error(f"Failed to write image to { image_output }")
                         logger.error(e)
