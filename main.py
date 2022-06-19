@@ -114,6 +114,7 @@ for source in definitions["sources"]:
                             image_file.write(ts_view.image)
                     except Exception as e:
                         logger.error(f"Failed to write image to { image_output }")
+                        logger.error(e)
                 
                 except Exception as e: # Failed to get image
                     logger.warning("An error occurred processing this content. Skipping.")
