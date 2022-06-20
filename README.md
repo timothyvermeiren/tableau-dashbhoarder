@@ -1,5 +1,7 @@
 # tableau-dashbhoarder
-Hoards dashboards from Tableau Server or Tableau Cloud, to local images. In other words, kind of an automated downloader of Tableau dashboards.
+"Hoards" dashboards from Tableau Server or Tableau Cloud, to local images. In other words, kind of an automated downloader of Tableau dashboards.
+
+Why? I use them to display a dashboard at home on a small display attached to a Raspberry Pi Zero W. It could technically display the interactive, embedded dashboard on a web page, but the Pi Zero W is a very lightweight computer. Hence, it is much faster to take the "lightweight approach" where the image gets downloaded beforehand and then displayed later.
 
 ## Installation
 
@@ -30,7 +32,7 @@ Currently, the installation simply goes though `git clone` and Python `virtualen
 ### Running
 
 From the command line, the tool is run "in" the virtualenv, through `main.py`, with just two arguments:
-  * `--destination-path`: a default destination path (i.e. output directory) to fall back to if no path has been specified for content specifically.
+  * `--destination-path`: a default destination path (i.e. output directory) to fall back to _if_ no path has been specified for content specifically.
   * `--definitions-file`: defines which content is to be hoarded, from where, to where. This is the key to how to tool works, explained below.
 
 In other words, a simple example (on Windows):  
@@ -48,11 +50,11 @@ There are two components to the definitions file:
   * Name and comment values are used to label the content.
   * There is a `source` field referring to the sources' `id` from above.
   * There is a `url` field that can simply be copied from the browser - a reference to the view on Tableau Server or Online. The information that's really extracted from here is the end of the base URL, usually `WorkbookName/ViewName`.
-  * Finally, there is an optional `target` key to specify where the output will be written. The extension is added automatically to the `filename`. Either or both of `filename` and `path` can be left out, in which case the tool will revert to defaults.
+  * Finally, there is an optional `destination` key to specify where the output will be written. The extension is added automatically to the `filename`. Either or both of `filename` and `path` can be left out, in which case the tool will revert to defaults.
 
 An example definitions file is provided under [config/definitions.json.template](config/definitions.json.template).
 
 ## To do
 
-* Implement proper credential management (through keyring, notably)
+* Implement proper credential management (through keyring, probably).
 * Implement "content type" so PDF or PPT can be downloaded aside from PNG.
