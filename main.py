@@ -4,7 +4,7 @@ import argparse # to parse additional arguments and the mode we'll use
 import logging
 import logging.handlers # For RotatingFileHandler
 import os, sys, datetime, re, json, time
-from functions import slugify, get_source_by_id
+from functions import slugify
 
 # First thing, logs directory
 if not os.path.exists("logs"):
