@@ -102,6 +102,13 @@ for source in definitions["sources"]:
 
                     # Get the view image
                     image_req_option = TSC.ImageRequestOptions(imageresolution=TSC.ImageRequestOptions.Resolution.High, maxage=1)
+                    possible_filter_list = re.match(pattern=r".*\?(.+)$", string=content["url"])
+                    if possible_filter_list is not None:
+                        filter_list = possible_filter_list.group(1)
+                        logger.info(f"Applying filters to the image request: { filter_list }")
+                        filters = [filter for filter in filter_list.split("&") if "=" in filter and filter.split("=")[0] not in ["iid"]]
+                        for filter in filters:
+                            image_req_option.vf(name=filter.split("=")[0], value=filter.split("=")[1])
                     tableau_server_tsc.views.populate_image(ts_view, image_req_option)
 
                     # Determine output based on what is provided, which is a bit flexible
